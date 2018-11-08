@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" charset="utf-8" src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/latest/clappr-rate-media-plugin.js"></script>
+	<title>clappr-rate-media-plugin Test Page</title>
+	<script type="text/javascript" charset="utf-8">
+		window.onload = function () {
+			var player = new Clappr.Player({
+				source: 'http://clappr.io/highline.mp4',
+				poster: 'http://clappr.io/poster.png',
+				parentId: '#player-wrapper',
+
+				plugins: {
+					core: [RateMediaPlugin],
+				},
+				rateMediaPlugin: {
+					'buttons': {
+						'like': {'text': 'Like', 'icon': {'default': 'thumbs-up'}, 'url': 'www.google.com.br/like'},
+						'dislike': {
+							'text': 'Dislike',
+							'icon': {'default': 'thumbs-down'},
+							'url': 'www.google.com.br/dislike'
+						},
+						'love': {'text': 'Love', 'icon': {'default': 'heart'}, 'url': 'www.google.com.br/love'}
+					}
+				},
+				width: 640, height: 360,
+				hideMediaControl: false
+			});
+		}
+	</script>
+</head>
+<body>
+<div align="center">
+	<div id="player-wrapper">
+	</div>
+</div>
+</body>
+</html>
