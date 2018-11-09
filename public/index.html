@@ -17,17 +17,19 @@
 				},
 				rateMediaPlugin: {
 					'buttons': {
-						'like': {'text': 'Like', 'icon': {'default': 'thumbs-up'}, 'url': 'www.google.com.br/like'},
+						'like': {'text': 'Like', 'icon': {'default': 'thumbs-up'}, 'url': '/', 'url_type': 'GET'},
 						'dislike': {
 							'text': 'Dislike',
 							'icon': {'default': 'thumbs-down'},
-							'url': 'www.google.com.br/dislike'
+							'url': '/',
+							'url_type': 'GET'
+
 						},
-						'love': {'text': 'Love', 'icon': {'default': 'heart'}, 'url': 'www.google.com.br/love'}
+						'love': {'text': 'Love', 'icon': {'default': 'heart'}, 'url': '/', 'url_type': 'GET'}
 					}
 				},
 				width: 640, height: 360,
-				hideMediaControl: false
+				hideMediaControl: true
 			});
 		}
 	</script>

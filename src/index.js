@@ -28,6 +28,20 @@ export default class RateMediaPlugin extends UICorePlugin {
 		return RateMediaPlugin._localStorage || {};
 	}
 
+	get position() {
+		const position = this._getOptions().position;
+		if (position) {
+			const position_array = position.split(' ');
+			let valid = false;
+			for (let i = 0; i < position_array.length; i++) {
+				if (["top", "bottom", "center", "left", "right"].indexOf(position_array[i]) >= 0) {
+					return position;
+				}
+			}
+		}
+		return "top center";
+	}
+
 	saveConfig(config) {
 		if (Browser.hasLocalstorage) {
 			try {
@@ -121,7 +135,9 @@ export default class RateMediaPlugin extends UICorePlugin {
 
 	_renderPlugin() {
 		const show = this._visible = this._ready && this._enabled && (this._stopped || this._mediaControlVisible);
-		this._$headingContainer.attr("data-visible", show ? "1" : "0");
+		this._$headingContainer
+			.addClass(this._mediaControlVisible ? 'media-control' : '')
+			.attr("data-visible", show ? "1" : "0");
 	}
 
 	_appendElToContainer() {
@@ -140,7 +156,7 @@ export default class RateMediaPlugin extends UICorePlugin {
 
 	render() {
 		const $el = $(this.el).empty();
-		const $container = this._$headingContainer = $("<div />").addClass("rate-media-container").attr("data-visible", "0");
+		const $container = this._$headingContainer = $("<div />").addClass(`rate-media-container ${this.position}`).attr("data-visible", "0");
 
 		this._renderButtons();
 
@@ -172,8 +188,7 @@ export default class RateMediaPlugin extends UICorePlugin {
 					if (this._visible && !config[hash]) {
 						$.ajax({
 							url: button.url,
-							type: 'POST',
-							cache: false,
+							type: button.url_type || 'POST',
 							xhrFields: {withCredentials: true},
 							success: (result, status, xhr) => {
 								config[hash] = true;
